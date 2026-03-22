@@ -1,3 +1,181 @@
 body {
-  background-color: #0060ee;
+  margin: 0;
+  font-family: Arial;
+  background: linear-gradient(to bottom, #0d0d0d, #1a1a1a);
+  color: white;
+  scroll-behavior: smooth;
+}
+
+header {
+  position: relative;
+  background-color: #111;
+  text-align: center;
+  padding: 120px 20px;
+  border-bottom: 3px solid #ff0000;
+  overflow: hidden;
+}
+
+/* ============================= */
+.header-car {
+  position: absolute;
+  top: 50%;                                 /* fragment pomiedzy liniami zostal wygenerowany przez ChatGPT */
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70%;
+  opacity: 0.25;
+  z-index: 0;
+  filter: blur(2px) brightness(0.7);
+}
+/* ============================= */
+
+header h1 {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  font-size: 60px;
+  letter-spacing: 4px;
+  text-shadow: 0 0 20px rgba(255,0,0,0.7);
+}
+
+header p {
+  position: relative;
+  z-index: 1;
+  font-size: 18px;
+  color: #ccc;
+}
+
+main {
+  width: 75%;
+  margin: auto;
+  padding: 40px 0;
+}
+
+section {
+  margin-bottom: 30px;
+}
+
+h2 {
+  color: #ff0000;
+  margin-top: 60px;
+  font-size: 32px;
+  border-bottom: 2px solid #ff0000;
+  padding-bottom: 10px;
+}
+
+h3 {
+  color: #cccccc;
+}
+
+p {
+  line-height: 1.8;
+  font-size: 17px;
+}
+
+ul, ol {
+  background-color: #1a1a1a;
+  padding: 20px;
+  border-left: 4px solid #ff0000;
+  margin-top: 20px;
+}
+
+.gallery {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.car {
+  display: inline-block;
+  width: 30%;
+  margin: 15px;
+  background: linear-gradient(145deg, #1a1a1a, #222);
+  padding: 15px;
+  border-radius: 10px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.car:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(255,0,0,0.5);
+}
+
+.car img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.car h3 {
+  margin-top: 10px;
+}
+
+footer {
+  background: linear-gradient(to right, #000000, #330000, #990000, #ff0000);
+  text-align: center;
+  padding: 30px;
+  margin-top: 100px;
+  border-top: 2px solid #ff0000;
+}
+.features {
+  background-color: #1a1a1a;
+  padding: 20px;
+  margin-top: 10px;
+  border: 5px solid red;
+}
+
+.features h3 {
+  color: #ff4d4d;
+}
+
+@media (max-width: 375px) {
+
+  .car {
+    width: 90%;
+    display: block;
+    margin: 20px auto;
+  }
+
+  header {
+    padding: 70px 15px;
+  }
+
+  header h1 {
+    font-size: 24px;
+    letter-spacing: 2px;
+  }
+
+  header p {
+    font-size: 14px;
+  }
+
+  .header-car {
+    width: 120%;
+    opacity: 0.2;
+  }
+
+  main {
+    width: 95%;
+    padding: 20px 0;
+  }
+
+  p {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  h2 {
+    font-size: 22px;
+  }
+
+  h3 {
+    font-size: 16px;
+  }
+
+  ul, ol {
+    padding: 12px;
+  }
+
+  footer {
+    padding: 20px;
+    font-size: 14px;
+  }
 }
