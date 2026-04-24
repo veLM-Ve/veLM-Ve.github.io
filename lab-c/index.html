@@ -6,9 +6,74 @@
     <title>Dawid Zajkowski (57735) - PTW LAB C</title>
 
     <link rel="stylesheet" href="styles.css" type="text/css">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-providers@1.13.0/leaflet-providers.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <script src="https://unpkg.com/leaflet-image/leaflet-image.js"></script>
+
     <script src="scripts.js" defer></script>
 </head>
 <body>
+
+    <div id="positionInfo">
+        <strong>Latitude:</strong> <span id="latitude"></span><br>
+        <strong>Longitude:</strong> <span id="longitude"></span><br>
+    </div>
+
+    <div id="plate">
+        <div id="mapa"></div>
+        <button id="getLocation" onclick="getLocation()">Get Location</button>
+        <button id="captureMapBtn" onclick="createTilePuzzle()">
+            Przenieś mapę do stołu
+        </button>
+
+        <div id="canvas"></div>
+
+        <div id="stolbez">
+            <!--
+            <div id="item1" class="item draggable" draggable="true"></div>
+            <div id="item2" class="item draggable" draggable="true"></div>
+            <div id="item3" class="item draggable" draggable="true"></div>
+            <div id="item4" class="item draggable" draggable="true"></div>
+            <div id="item5" class="item draggable" draggable="true"></div>
+            <div id="item6" class="item draggable" draggable="true"></div>
+            <div id="item7" class="item draggable" draggable="true"></div>
+            <div id="item8" class="item draggable" draggable="true"></div>
+            <div id="item9" class="item draggable" draggable="true"></div>
+            <div id="item10" class="item draggable" draggable="true"></div>
+            <div id="item11" class="item draggable" draggable="true"></div>
+            <div id="item12" class="item draggable" draggable="true"></div>
+            <div id="item13" class="item draggable" draggable="true"></div>
+            <div id="item14" class="item draggable" draggable="true"></div>
+            <div id="item15" class="item draggable" draggable="true"></div>
+            <div id="item16" class="item draggable" draggable="true"></div>
+            -->
+        </div>
+
+        <div class="drag-target">
+            <div class="slot"></div>
+            <div class="slot"></div>
+            <div class="slot"></div>
+            <div class="slot"></div>
+            <div class="slot"></div>
+            <div class="slot"></div>
+            <div class="slot"></div>
+            <div class="slot"></div>
+            <div class="slot"></div>
+            <div class="slot"></div>
+            <div class="slot"></div>
+            <div class="slot"></div>
+            <div class="slot"></div>
+            <div class="slot"></div>
+            <div class="slot"></div>
+            <div class="slot"></div>
+        </div>
+
+    </div>
+
+
 
 </body>
 </html>
