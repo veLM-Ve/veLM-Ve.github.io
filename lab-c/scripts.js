@@ -1,182 +1,204 @@
+const COLS = 4, ROWS = 4;
 
-function getLocation() {
-  if (!navigator.geolocation) {
-    alert("Brak geolokalizacji!");
-    return;
+map = L.map('map').setView([53.430127, 14.564802], 18);
+L.tileLayer.provider('Esri.WorldImagery').addTo(map);
+marker = L.marker([53.430127, 14.564802]).addTo(map);
+
+if ('Notification' in window && Notification.permission === 'default') {
+  Notification.requestPermission();
+}
+
+buildBoard();
+
+document.getElementById("saveButton").addEventListener("click", function () {
+
+  leafletImage(map, function (err, canvas) {
+
+    let rasterMap = document.getElementById("rasterMap");
+    let ctx = rasterMap.getContext("2d");
+
+    rasterMap.width = canvas.width;
+    rasterMap.height = canvas.height;
+
+    ctx.drawImage(canvas, 0, 0);
+
+    rasterMap.style.display = "block";
+
+    document.getElementById("canvas-hint").style.display = "none";
+
+    splitIntoPuzzle(canvas);
+  });
+
+});
+
+document.getElementById("getLocation").addEventListener("click", function(event) {
+  if (! navigator.geolocation) {
+    console.log("No geolocation.");
   }
 
-  navigator.geolocation.getCurrentPosition((position) => {
-    const lat = position.coords.latitude;
-    const lon = position.coords.longitude;
+  navigator.geolocation.getCurrentPosition(position => {
+    let lat = position.coords.latitude;
+    let lon = position.coords.longitude;
 
     document.getElementById("latitude").innerText = lat;
     document.getElementById("longitude").innerText = lon;
 
-    map.setView([lat, lon], 13);
-
-    L.marker([lat, lon])
-      .addTo(map)
-      .bindPopup("You are here!")
-      .openPopup();
-
-  }, (err) => {
-    console.error(err);
+    map.setView([lat, lon]);
+    marker.setLatLng([lat, lon]);
+  }, positionError => {
+    console.error(positionError);
   });
-}
-
-
-// DRAG
-document.addEventListener("dragstart", function(event) {
-  if (event.target.classList.contains("item")) {
-    event.target.style.border = "5px dashed #D8D8FF";
-    event.dataTransfer.setData("text", event.target.id);
-  }
 });
 
-document.addEventListener("dragend", function(event) {
-  if (event.target.classList.contains("item")) {
-    event.target.style.borderWidth = "0";
-  }
-});
+function splitIntoPuzzle(canvas) {
 
+  let pw = Math.floor(canvas.width  / COLS);
+  let ph = Math.floor(canvas.height / ROWS);
 
+  let pieces = [];
 
-// DROP
-let targets = document.querySelectorAll(".slot, #stolbez");
+  for (let row = 0; row < ROWS; row++) {
+    for (let col = 0; col < COLS; col++) {
 
-for (let target of targets) {
-  target.addEventListener("dragenter", function () {
-    if (this.classList.contains("slot")) {
-      this.style.backgroundColor = "#7FE9D9";
-    } else if (this.id === "stolbez") {
-      this.style.border = "2px solid #7FE9D9";
-    }
-  });
+      let idx = row * COLS + col;
 
-  target.addEventListener("dragleave", function () {
-    if (this.classList.contains("slot")) {
-      this.style.backgroundColor = "#f5f5f5";
-    } else if (this.id === "stolbez") {
-      this.style.border = "none";
-    }
-  });
-
-  target.addEventListener("dragover", function (event) {
-    event.preventDefault();
-  });
-
-  target.addEventListener("drop", function (event) {
-    let el = document.querySelector("#" + event.dataTransfer.getData('text'));
-
-    if (this.classList.contains("slot")) {
-      if (this.children.length === 0) {
-        this.appendChild(el);
-      }
-    } else if (this.id === "stolbez") {
-      this.appendChild(el);
-    }
-  });
-}
-
-
-// MAPA
-let map = L.map('mapa').setView([51.505, -0.09], 13);
-
-L.tileLayer(
-  'https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-  {
-    attribution: 'Esri',
-    crossOrigin: true
-  }
-).addTo(map);
-
-
-function createTilePuzzleFromCanvas(canvas) {
-  const stolbez = document.getElementById("stolbez");
-  stolbez.innerHTML = "";
-
-  const rows = 4;
-  const cols = 4;
-
-  const tileWidth = canvas.width / cols;
-  const tileHeight = canvas.height / rows;
-
-  let tiles = [];
-  let index = 0;
-
-  for (let y = 0; y < rows; y++) {
-    for (let x = 0; x < cols; x++) {
-
-      const tileCanvas = document.createElement("canvas");
-      tileCanvas.width = tileWidth;
-      tileCanvas.height = tileHeight;
-
-      const ctx = tileCanvas.getContext("2d");
-
-      ctx.drawImage(
-        canvas,
-        x * tileWidth,
-        y * tileHeight,
-        tileWidth,
-        tileHeight,
-        0,
-        0,
-        tileWidth,
-        tileHeight
+      /* ============================= */
+      let pc = document.createElement('canvas');
+      pc.width  = pw;
+      pc.height = ph;
+      pc.getContext('2d').drawImage(
+        canvas,                                               /* fragment pomiędzy liniami został wygenerowany przez Claude */
+        col * pw, row * ph,
+        pw, ph,
+        0, 0, pw, ph
       );
 
-      const img = new Image();
-      img.src = tileCanvas.toDataURL();
-      img.className = "item";
-      img.id = "tile" + index;
-      img.draggable = true;
-
-      tiles.push(img);
-      index++;
+      pieces.push({ idx, canvas: pc });
+      /* ============================= */
     }
   }
 
-  tiles.sort(() => Math.random() - 0.5);
-  tiles.forEach(t => stolbez.appendChild(t));
+  for (let i = pieces.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    [pieces[i], pieces[j]] = [pieces[j], pieces[i]];
+  }
+
+  renderPieces(pieces);
+  buildBoard();
 }
 
+function renderPieces(pieces) {
 
-document.getElementById('captureMapBtn').addEventListener('click', () => {
+  let table = document.getElementById('puzzle-table');
+  table.innerHTML = '';
 
-  setTimeout(() => {
+  /* ============================= */
 
-    html2canvas(document.getElementById("mapa"), {
-      useCORS: true,
-      scale: 1
-    }).then(canvas => {
-
-      createTilePuzzleFromCanvas(canvas);
-
+  for (let piece of pieces) {
+    let img       = document.createElement('img');
+    img.src       = piece.canvas.toDataURL();
+    img.className = 'piece';
+    img.draggable = true;
+    img.id        = 'piece-' + piece.idx;
+    img.dataset.idx = piece.idx;
+    table.appendChild(img);
+  }
+                                                                        /* fragment pomiędzy liniami został wygenerowany przez Claude */
+  let items = table.querySelectorAll('.piece');
+  for (let item of items) {
+    item.addEventListener("dragstart", function(event) {
+      this.style.border = "5px dashed #D8D8FF";
+      event.dataTransfer.setData("text", this.id);
     });
+    item.addEventListener("dragend", function(event) {
+      this.style.borderWidth = "0";
+    });
+  }
 
-  }, 600);
+  /* ============================= */
 
-});
+  let targets = table;
+  targets.addEventListener("dragenter", function(event) {
+    this.style.border = "2px solid #7FE9D9";
+  });
+  targets.addEventListener("dragleave", function(event) {
+    this.style.border = "2px dashed #7f7fe9";
+  });
+  targets.addEventListener("dragover", function(event) {
+    event.preventDefault();
+  });
+  targets.addEventListener("drop", function(event) {
+    let myElement = document.querySelector("#" + event.dataTransfer.getData('text'));
+    this.appendChild(myElement);
+    this.style.border = "2px dashed #7f7fe9";
+  }, false);
+}
 
-document.getElementById("captureMapBtn").addEventListener("click", () => {
-  leafletImage(map, function(err, canvas) {
-    if (err) return console.error(err);
+function buildBoard() {
 
-    // Tworzymy ukryty canvas w tle
-    let targetCanvas = document.getElementById("canvas");
-    if (!targetCanvas) {
-      targetCanvas = document.createElement("canvas");
-      targetCanvas.id = "canvas";
-      targetCanvas.style.display = "none"; // nie pokazujemy
-      document.body.appendChild(targetCanvas);
+  let board = document.getElementById('puzzle-board');
+  board.innerHTML = '';
+
+  for (let i = 0; i < ROWS * COLS; i++) {
+    let slot = document.createElement('div');
+    slot.className   = 'slot';
+    slot.dataset.pos = i;
+    board.appendChild(slot);
+  }
+
+  let targets = board.querySelectorAll('.slot');
+  for (let target of targets) {
+    target.addEventListener("dragenter", function(event) {
+      this.style.border = "2px solid #7FE9D9";
+    });
+    target.addEventListener("dragleave", function(event) {
+      this.style.border = "2px dashed #7f7fe9";
+    });
+    target.addEventListener("dragover", function(event) {
+      event.preventDefault();
+    });
+    target.addEventListener("drop", function(event) {
+      let myElement = document.querySelector("#" + event.dataTransfer.getData('text'));
+      if (!myElement) return;
+
+      let existing = this.querySelector('img');
+      if (existing) {
+        document.getElementById('puzzle-table').appendChild(existing);
+      }
+
+      this.appendChild(myElement);
+      this.style.border = "2px dashed #7f7fe9";
+      checkWin();
+    }, false);
+  }
+}
+
+function checkWin() {
+  const slots = document.querySelectorAll('.slot');
+  let correct = 0;
+
+  slots.forEach(slot => {
+    const img = slot.querySelector('img');
+
+    if (img && img.dataset.idx == slot.dataset.pos) {
+      slot.classList.add('correct');
+      correct++;
+    } else {
+      slot.classList.remove('correct');
+    }
+  });
+
+  if (correct === slots.length) {
+    console.debug("Brawo! Ułożyłeś puzzle");
+
+    if ("Notification" in window && Notification.permission === "granted") {
+      new Notification("Brawo!", {
+        body: "Ułożyłeś puzzle",
+      });
+      alert("Brawo! Ułożyłeś puzzle");
+    } else {
+      alert("Brawo! Ułożyłeś puzzle");
     }
 
-    const ctx = targetCanvas.getContext("2d");
-    targetCanvas.width = canvas.width;
-    targetCanvas.height = canvas.height;
-    ctx.drawImage(canvas, 0, 0);
-
-    // Teraz puzzle z canvas
-    createTilePuzzleFromCanvas(targetCanvas);
-  });
-});
+  }
+}
