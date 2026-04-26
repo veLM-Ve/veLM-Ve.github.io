@@ -1,14 +1,25 @@
 <!doctype html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Imie Nazwisko (00000) - PTW LAB C</title>
-
-    <link rel="stylesheet" href="styles.css" type="text/css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dawid Zajkowski (57735) - PTW LAB D</title>
+    <link rel="stylesheet" href="styles.css">
     <script src="scripts.js" defer></script>
 </head>
 <body>
+<main class="box">
+    <h1>Sprawdź <span>pogodę</span></h1>
 
+    <div class="search">
+        <input id="cityInput" type="text" placeholder="Wpisz miasto" autocomplete="off">
+        <button id="weatherBtn">Pogoda</button>
+    </div>
+
+    <section class="weather-container">
+        <div id="currentWeather" class="current-box"></div>
+        <div id="forecast" class="forecast-box"></div>
+    </section>
+</main>
 </body>
 </html>

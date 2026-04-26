@@ -1,3 +1,203 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 body {
-  background-color: #0620ff;
+  font-family: 'Outfit', sans-serif;
+  min-height: 100vh;
+  color: #e8f4fd;
+  background: linear-gradient(180deg, #0f2744 0%, #1a3a6b 40%, #0d1f3c 100%);
+}
+
+main.box {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 50px 24px;
+}
+
+h1 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 36px;
+}
+
+h1 span {
+  color: #38bdf8;
+}
+
+.search {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 36px;
+}
+
+input {
+  flex: 1;
+  padding: 14px 18px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.08);
+  color: #e8f4fd;
+  font-size: 15px;
+  font-family: 'Outfit', sans-serif;
+}
+
+input::placeholder {
+  color: rgba(232,244,253,0.5);
+}
+
+input:focus {
+  outline: none;
+  border-color: #38bdf8;
+}
+
+button {
+  padding: 14px 24px;
+  border: none;
+  border-radius: 12px;
+  background: #38bdf8;
+  color: #0f2744;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Outfit', sans-serif;
+}
+
+button:hover {
+  background: #7dd3fc;
+}
+
+.weather-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+/* ============================= */
+.current-box,
+.forecast-box {
+  display: none;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 20px;
+  padding: 24px;/* fragment pomiedzy liniami zostal wygenerowany przez ChatGPT */
+}
+
+.current-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+/* ============================= */
+.current-main h2 {
+  font-size: 1.4rem;
+}
+
+.current-main p {
+  color: rgba(232,244,253,0.6);
+  text-transform: capitalize;
+  margin-top: 4px;
+}
+
+.current-main img {
+  width: 80px;
+  height: 80px;
+}
+
+.temp {
+  font-size: 4rem;
+  font-weight: 700;
+  margin: 8px 0 16px;
+}
+
+.current-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.current-grid div {
+  background: rgba(255,255,255,0.06);
+  border-radius: 10px;
+  padding: 12px;
+  font-size: .85rem;
+  color: rgba(232,244,253,0.6);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.current-grid div span.label {
+  font-size: .7rem;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: #38bdf8;
+  font-weight: 600;
+}
+
+.forecast-box h2 {
+  font-size: .9rem;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: rgba(232,244,253,0.5);
+  margin-bottom: 14px;
+}
+
+.forecast-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.forecast-card {
+  background: rgba(255,255,255,0.06);
+  border-radius: 12px;
+  padding: 14px;
+  text-align: center;
+}
+
+.forecast-card img {
+  width: 44px;
+  height: 44px;
+}
+/* ============================= */
+.fc-date {
+  font-size: .8rem;
+  font-weight: 600;
+  color: #7dd3fc;
+  margin-bottom: 2px;
+}
+
+.fc-time {
+  font-size: .72rem;
+  color: rgba(232,244,253,0.5);
+  margin-bottom: 6px;
+}
+
+.fc-temp {
+  font-size: 1.2rem;
+  font-weight: 700;/* fragment pomiedzy liniami zostal wygenerowany przez ChatGPT */
+  margin: 4px 0;
+}
+
+.fc-desc {
+  font-size: .72rem;
+  color: rgba(232,244,253,0.5);
+  text-transform: capitalize;
+}
+/* ============================= */
+.error-msg {
+  color: #fca5a5;
+  text-align: center;
+  padding: 10px;
+}
+
+@media (max-width: 600px) {
+  .search { flex-direction: column; }
+  .current-grid { grid-template-columns: repeat(2, 1fr); }
+  .temp { font-size: 3rem; }
 }
