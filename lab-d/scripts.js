@@ -43,7 +43,6 @@ function getCurrentWeather(city) {
 }
 
 function showCurrentWeather(data) {
-  currentWeather.style.display = "block";
   const sunrise = new Date(data.sys.sunrise * 1000).toLocaleTimeString("pl-PL", { hour: "2-digit", minute: "2-digit" });
   const sunset  = new Date(data.sys.sunset  * 1000).toLocaleTimeString("pl-PL", { hour: "2-digit", minute: "2-digit" });
   const iconCode = data.weather[0].icon;
@@ -96,7 +95,6 @@ function getForecast(city) {
 }
 
 function showForecast(data) {
-  forecast.style.display = "block";
   const items = data.list.filter(item =>
     item.dt_txt.includes("00:00:00") ||
     item.dt_txt.includes("06:00:00") ||
