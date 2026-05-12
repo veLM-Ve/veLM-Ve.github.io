@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite'
 
 export default defineConfig({
-    base: '/lab-e/'
+    base: '/lab-e/dist/'
 })
