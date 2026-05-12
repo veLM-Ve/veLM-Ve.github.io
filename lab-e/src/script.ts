@@ -6,15 +6,15 @@ type StyleItem = {
 const styles: StyleItem[] = [
     {
         name: "Styl 1",
-        file: "/style-1.css"
+        file: "./style-1.css"
     },
     {
         name: "Styl 2",
-        file: "/style-2.css"
+        file: "./style-2.css"
     },
     {
         name: "Styl 3",
-        file: "/style-3.css"
+        file: "./style-3.css"
     }
 ];
 
