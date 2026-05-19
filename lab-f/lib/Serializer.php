@@ -13,6 +13,10 @@ class Serializer
 
     public function convert($input, $inputFormat, $outputFormat)
     {
+        if ($inputFormat == $outputFormat) {
+            return $input;
+        }
+
         $data = array();
 
         foreach($this->encoders as $encoder)
