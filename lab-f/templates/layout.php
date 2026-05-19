@@ -35,7 +35,7 @@ if($error!="")
 <form method="post">
 
     <p>Dane wejściowe:</p>
-    <textarea name="input"><?= $input ?></textarea>
+    <textarea name="input"><?= htmlspecialchars($input, ENT_QUOTES, "UTF-8") ?></textarea>
     <br><br>
 
     <div class="row">
@@ -82,7 +82,7 @@ if($error!="")
 
 <h2>Output</h2>
 
-<pre><?= $output ?></pre>
+<pre><?= htmlspecialchars($output, ENT_QUOTES, "UTF-8") ?></pre>
 
 </body>
 
