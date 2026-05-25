@@ -42,6 +42,35 @@ switch ($action) {
         $controller = new \App\Controller\InfoController();
         $view = $controller->infoAction();
         break;
+    case 'game-index':
+        $controller = new \App\Controller\GameController();
+        $view = $controller->indexAction($templating, $router);
+        break;
+    case 'game-create':
+        $controller = new \App\Controller\GameController();
+        $view = $controller->createAction($_REQUEST['game'] ?? null, $templating, $router);
+        break;
+    case 'game-edit':
+        if (!$_REQUEST['id']) {
+            break;
+        }
+        $controller = new \App\Controller\GameController();
+        $view = $controller->editAction($_REQUEST['id'], $_REQUEST['game'] ?? null, $templating, $router);
+        break;
+    case 'game-show':
+        if (!$_REQUEST['id']) {
+            break;
+        }
+        $controller = new \App\Controller\GameController();
+        $view = $controller->showAction($_REQUEST['id'], $templating, $router);
+        break;
+    case 'game-delete':
+        if (!$_REQUEST['id']) {
+            break;
+        }
+        $controller = new \App\Controller\GameController();
+        $view = $controller->deleteAction($_REQUEST['id'], $router);
+        break;
     default:
         $view = 'Not found';
         break;

@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS game (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    platform TEXT NOT NULL,
+    genre TEXT NOT NULL,
+    release_year INTEGER
+);
