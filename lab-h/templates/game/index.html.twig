@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Game index{% endblock %}
+
+{% block body %}
+    <h1 class="mb-4">Game Library</h1>
+
+    <a class="btn btn-primary mb-3" href="{{ path('app_game_new') }}">
+        Add New Game
+    </a>
+
+    <table class="table table-striped table-hover table-bordered">
+        <thead class="table-dark">
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Platform</th>
+            <th>Genre</th>
+            <th>Release Year</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for game in games %}
+            <tr>
+                <td>{{ game.id }}</td>
+                <td>{{ game.title }}</td>
+                <td>{{ game.platform }}</td>
+                <td>{{ game.genre }}</td>
+                <td>{{ game.releaseYear }}</td>
+                <td>
+                    <a class="btn btn-info btn-sm"
+                       href="{{ path('app_game_show', {'id': game.id}) }}">
+                        Show
+                    </a>
+
+                    <a class="btn btn-warning btn-sm"
+                       href="{{ path('app_game_edit', {'id': game.id}) }}">
+                        Edit
+                    </a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6" class="text-center">No records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
