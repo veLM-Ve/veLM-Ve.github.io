@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Game Library</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+
+<h1>Create Game</h1>
+
+<form action="/game/create" method="POST">
+
+    <p>
+        Title:
+        <input type="text" name="title">
+    </p>
+
+    <p>
+        Platform:
+        <input type="text" name="platform">
+    </p>
+
+    <p>
+        Genre:
+        <input type="text" name="genre">
+    </p>
+
+    <p>
+        Release Year:
+        <input type="text" name="release_year">
+    </p>
+
+<button type="submit">Save</button>
+
+</form>
+
+<a href="/game">Back to list</a>
+
+</body>
+</html>

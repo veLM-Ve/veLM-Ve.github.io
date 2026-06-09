@@ -1,1 +1,118 @@
-body{padding:50px;font:14px "Lucida Grande",Helvetica,Arial,sans-serif}a{color:#00B7FF}
+body {
+    background: linear-gradient(
+        180deg,
+        #ff7b54 0%,
+        #ff4d8d 40%,
+        #7b2cbf 100%
+    );
+    min-height: 100vh;
+    color: #ffffff;
+}
+
+.container {
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(8px);
+    padding: 25px;
+    border-radius: 20px;
+    margin-top: 30px;
+}
+
+h1 {
+    color: #ffffff;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-shadow: 0 0 15px #ff4d8d;
+}
+
+.navbar {
+    background: rgba(0, 0, 0, 0.75) !important;
+    border-bottom: 2px solid #ff4d8d;
+}
+
+.navbar-brand {
+    color: #ffb703 !important;
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+.table {
+    background: rgba(255, 255, 255, 0.95);
+    color: #000;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.table th {
+    background: #ff4d8d;
+    color: white;
+}
+
+.table-hover tbody tr:hover {
+    background: #ffe0ec;
+}
+
+.btn-primary {
+    background: #ff4d8d;
+    border-color: #ff4d8d;
+    color: white;
+    font-weight: bold;
+}
+
+.btn-primary:hover {
+    background: #ff2e79;
+    border-color: #ff2e79;
+}
+
+.btn-warning {
+    background: #ffb703;
+    border-color: #ffb703;
+    color: black;
+    font-weight: bold;
+}
+
+.btn-info {
+    background: #7b2cbf;
+    border-color: #7b2cbf;
+    color: white;
+    font-weight: bold;
+}
+
+footer {
+    background: rgba(0, 0, 0, 0.75);
+    border-top: 2px solid #ff4d8d;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    margin-top: 30px;
+}
+
+@media (max-width: 375px) {
+
+    .container {
+        padding: 10px;
+        margin-top: 10px;
+        border-radius: 10px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+        text-align: center;
+        letter-spacing: 1px;
+    }
+
+    .navbar-brand {
+        font-size: 1rem;
+    }
+
+    .table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+        font-size: 0.8rem;
+    }
+
+    .btn {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+}

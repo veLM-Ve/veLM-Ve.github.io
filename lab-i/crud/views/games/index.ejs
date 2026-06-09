@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Game Library</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+
+<h1>Game Library</h1>
+
+<a href="/game/create">Add New Game</a>
+
+<table border="1">
+<tr>
+    <th>Id</th>
+    <th>Title</th>
+    <th>Platform</th>
+    <th>Genre</th>
+    <th>Release Year</th>
+    <th>Actions</th>
+</tr>
+
+<% games.forEach(game => { %>
+<tr>
+    <td><%= game.id %></td>
+    <td><%= game.title %></td>
+    <td><%= game.platform %></td>
+    <td><%= game.genre %></td>
+    <td><%= game.release_year %></td>
+
+    <td>
+        <a href="/game/<%= game.id %>">Show</a>
+
+        <a href="/game/<%= game.id %>/edit">Edit</a>
+
+        <form action="/game/<%= game.id %>/delete"
+              method="POST"
+              style="display:inline;">
+            <button type="submit">Delete</button>
+        </form>
+    </td>
+</tr>
+<% }) %>
+
+</table>
+
+</body>
+</html>

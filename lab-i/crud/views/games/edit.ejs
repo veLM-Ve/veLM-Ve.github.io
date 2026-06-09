@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Game Library</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body>
+<h1>Edit Game</h1>
+
+<form action="/games/<%= game.id %>/edit" method="POST">
+
+    <p>
+        Title:
+        <input type="text"
+               name="title"
+               value="<%= game.title %>">
+    </p>
+
+    <p>
+        Platform:
+        <input type="text"
+               name="platform"
+               value="<%= game.platform %>">
+    </p>
+
+    <p>
+        Genre:
+        <input type="text"
+               name="genre"
+               value="<%= game.genre %>">
+    </p>
+
+    <p>
+        Release Year:
+        <input type="text"
+               name="release_year"
+               value="<%= game.release_year %>">
+    </p>
+
+    <button type="submit">Update</button>
+
+</form>
+
+<a href="/game">Back to list</a>
