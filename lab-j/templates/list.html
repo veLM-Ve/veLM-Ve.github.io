@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block title %}Lista gier{% endblock %}
+{% block body_class %}index{% endblock %}
+
+{% block content %}
+<h1>Lista gier</h1>
+
+<a href="{{ url_for('create') }}">Dodaj grę</a>
+
+<ul class="index-list">
+    {% for game in games %}
+        <li>
+            <h3>{{ game.title }}</h3>
+
+            <p>Platforma: {{ game.platform }}</p>
+            <p>Gatunek: {{ game.genre }}</p>
+            <p>Rok wydania: {{ game.release_year }}</p>
+
+            <ul class="action-list">
+                <li>
+                    <a href="{{ url_for('show', id=game.id) }}">Szczegóły</a>
+                </li>
+                <li>
+                    <a href="{{ url_for('edit', id=game.id) }}">Edytuj</a>
+                </li>
+            </ul>
+        </li>
+    {% else %}
+        <li>Brak gier w bazie danych.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

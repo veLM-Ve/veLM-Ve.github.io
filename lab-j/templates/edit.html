@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+
+{% block title %}Edytuj: {{ game.title }}{% endblock %}
+{% block body_class %}edit{% endblock %}
+
+{% block content %}
+<h1>Edytuj: {{ game.title }}</h1>
+
+<form action="{{ url_for('edit', id=game.id) }}" method="post" class="edit-form">
+    <div class="form-group">
+        <label for="title">Tytuł</label>
+        <input type="text" id="title" name="title" value="{{ game.title }}" required>
+    </div>
+
+    <div class="form-group">
+        <label for="platform">Platforma</label>
+        <input type="text" id="platform" name="platform" value="{{ game.platform }}" required>
+    </div>
+
+    <div class="form-group">
+        <label for="genre">Gatunek</label>
+        <input type="text" id="genre" name="genre" value="{{ game.genre }}" required>
+    </div>
+
+    <div class="form-group">
+        <label for="release_year">Rok wydania</label>
+        <input type="number" id="release_year" name="release_year" value="{{ game.release_year }}">
+    </div>
+
+    <div class="form-group">
+        <label></label>
+        <input type="submit" value="Zapisz">
+    </div>
+</form>
+
+<ul class="action-list">
+    <li>
+        <a href="{{ url_for('index') }}">Wróć do listy</a>
+    </li>
+    <li>
+        <form action="{{ url_for('delete', id=game.id) }}" method="post">
+            <input type="submit" value="Usuń" onclick="return confirm('Na pewno?')">
+        </form>
+    </li>
+</ul>
+{% endblock %}

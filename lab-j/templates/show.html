@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ game.title }}{% endblock %}
+{% block body_class %}show{% endblock %}
+
+{% block content %}
+<h1>{{ game.title }}</h1>
+
+<p>Platforma: {{ game.platform }}</p>
+<p>Gatunek: {{ game.genre }}</p>
+<p>Rok wydania: {{ game.release_year }}</p>
+
+<ul class="action-list">
+    <li>
+        <a href="{{ url_for('index') }}">Wróć do listy</a>
+    </li>
+    <li>
+        <a href="{{ url_for('edit', id=game.id) }}">Edytuj</a>
+    </li>
+</ul>
+{% endblock %}
