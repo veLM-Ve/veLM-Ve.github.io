@@ -1,6 +1,6 @@
 {
   "electron": {
-    "linux": {
+    "windows": {
       "package": [
         "zip"
       ]
