@@ -14,12 +14,14 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "cordova-android": "^15.0.0",
-    "cordova-browser": "^7.0.0"
+    "cordova-browser": "^7.0.0",
+    "cordova-electron": "^4.0.0"
   },
   "cordova": {
     "platforms": [
       "browser",
-      "android"
+      "android",
+      "electron"
     ]
   }
 }
